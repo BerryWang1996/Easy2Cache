@@ -16,26 +16,22 @@
 
 package com.github.berrywang1996.easy2cache;
 
-import com.lambdaworks.redis.cluster.api.async.RedisAdvancedClusterAsyncCommands;
+import lombok.Data;
 
 /**
  * @author 王伯瑞
  * @version V1.0.0
+ * @Title:
+ * @Package com.github.berrywang1996.easy2cache
+ * @date 2018/7/25 17:43
  */
-public class Easy2CacheClusterClient extends Easy2CacheClient {
+@Data
+public class User {
 
-    public Easy2CacheClusterClient(RedisAdvancedClusterAsyncCommands async) {
-        super(async);
-    }
+    private Long id;
 
-    @Override
-    public void set(Easy2CacheChannel easy2CacheChannel) {
-        super.getClusterAsyncCommands().set(easy2CacheChannel.getRealKey(), easy2CacheChannel.getValue());
-    }
+    private String username;
 
-    @Override
-    public <T> T get(T easy2CacheChannel) {
-        return easy2CacheChannel;
-    }
+    private String password;
 
 }

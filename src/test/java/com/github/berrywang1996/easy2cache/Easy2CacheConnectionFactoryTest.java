@@ -1,11 +1,7 @@
 package com.github.berrywang1996.easy2cache;
 
 import com.github.berrywang1996.easy2cache.consts.RedisMode;
-import lombok.Getter;
-import lombok.Setter;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * @author 王伯瑞
@@ -27,14 +23,15 @@ public class Easy2CacheConnectionFactoryTest {
         Easy2CacheClient client = connection.getClient();
 
         // 保存数据
-        UserChannel userChannel = new UserChannel();
+        UserCacheChannel userChannel = new UserCacheChannel();
         userChannel.setRealKey(UserChannel.PREFIX + "123");
-        userChannel.setValue(new Object());
+        userChannel.setValue(new User());
         client.set(userChannel);
 
         // 设置数据
-        UserChannel userChannel1 = client.get(userChannel);
-        Object value = userChannel1.getValue();
+        UserCacheChannel userCacheChannel = client.get(userChannel);
+        User value = userCacheChannel.getValue();
+        System.out.println(value);
 
         // 关闭客户端
         client.close();
