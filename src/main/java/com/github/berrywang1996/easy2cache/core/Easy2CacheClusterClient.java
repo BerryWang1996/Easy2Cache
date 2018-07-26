@@ -30,7 +30,8 @@ public class Easy2CacheClusterClient extends AbstractEasy2CacheClient {
 
     @Override
     public void set(AbstractEasy2CacheChannel abstractEasy2CacheChannel) {
-        super.getClusterAsyncCommands().set(abstractEasy2CacheChannel.getRealKey(), abstractEasy2CacheChannel.serialize());
+        super.getClusterAsyncCommands().set(abstractEasy2CacheChannel.getRealKey(), abstractEasy2CacheChannel
+                .serialize());
     }
 
     @Override

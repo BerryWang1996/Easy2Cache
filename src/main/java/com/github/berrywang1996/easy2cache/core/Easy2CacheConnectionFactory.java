@@ -36,7 +36,7 @@ public class Easy2CacheConnectionFactory {
         // 创建真正的连接
         String url = easy2CacheConfig.getUrl();
         // 根据redis模式，创建对应的连接
-        StatefulConnection<String, String> connection = null;
+        StatefulConnection<String, String> connection;
         if (RedisMode.CLUSTER == easy2CacheConfig.getRedisMode()) {
             // 集群模式
             RedisClusterClient redisClient = RedisClusterClient.create(url);

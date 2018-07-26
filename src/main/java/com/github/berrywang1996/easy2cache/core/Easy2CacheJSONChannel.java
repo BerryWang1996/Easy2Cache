@@ -17,7 +17,6 @@
 package com.github.berrywang1996.easy2cache.core;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 
 /**
