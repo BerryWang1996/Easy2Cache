@@ -16,6 +16,7 @@
 
 package com.github.berrywang1996.easy2cache.core;
 
+import com.github.berrywang1996.easy2cache.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.nustaq.serialization.FSTConfiguration;
 
@@ -24,24 +25,26 @@ import org.nustaq.serialization.FSTConfiguration;
  * @version V1.0.0
  */
 @Slf4j
-public class Easy2CacheByteChannel<T> extends AbstractEasy2CacheChannel<T, byte[]> {
+public class Easy2CacheByteChannel<T> extends AbstractEasy2CacheChannel<T, String> {
 
     private FSTConfiguration fstConfiguration = FSTConfiguration.createDefaultConfiguration();
 
     @Override
-    public byte[] serialize() {
+    public String serialize() {
         if (log.isDebugEnabled()) {
-            log.debug("execute fst serialize:{}", fstConfiguration.asByteArray(this.getValue()));
+            log.debug("execute fst serialize:{}",
+                    StringUtil.byteArrayToHexStr(fstConfiguration.asByteArray(this.getValue())));
         }
-        return fstConfiguration.asByteArray(this.getValue());
+        return StringUtil.byteArrayToHexStr(fstConfiguration.asByteArray(this.getValue()));
     }
 
     @Override
-    public T unserialize(byte[] data, Class<T> clz) {
+    public T unserialize(String data, Class<T> clz) {
         if (log.isDebugEnabled()) {
-            log.debug("execute fst unserialize:{}", fstConfiguration.asObject(data));
+            log.debug("execute fst unserialize:{}",
+                    fstConfiguration.asObject(StringUtil.hexStrToByteArray(data)));
         }
-        return (T) fstConfiguration.asObject(data);
+        return (T) fstConfiguration.asObject(StringUtil.hexStrToByteArray(data));
     }
 
 }

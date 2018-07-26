@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package com.github.berrywang1996.easy2cache;
+package com.github.berrywang1996.easy2cache.domain;
 
-import com.github.berrywang1996.easy2cache.core.Easy2CacheJsonChannel;
+import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * @author BerryWang1996
  * @version V1.0.0
  */
-public class UserCacheChannel extends Easy2CacheJsonChannel<User> {
+@Data
+public class Department implements Serializable {
 
-    @Override
-    public void setRealKey(String realKey) {
-        super.setRealKey(realKey);
-    }
+    private Long id;
+
+    private String name;
 
 }

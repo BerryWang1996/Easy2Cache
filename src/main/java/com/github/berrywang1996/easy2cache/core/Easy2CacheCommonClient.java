@@ -34,7 +34,8 @@ public class Easy2CacheCommonClient extends AbstractEasy2CacheClient {
     public void set(AbstractEasy2CacheChannel abstractEasy2CacheChannel) {
         getCommonCommands().set(
                 abstractEasy2CacheChannel.getRealKey(),
-                abstractEasy2CacheChannel.serialize());
+                abstractEasy2CacheChannel.serialize()
+        );
     }
 
     @Override
@@ -43,9 +44,10 @@ public class Easy2CacheCommonClient extends AbstractEasy2CacheClient {
         try {
             abstractEasy2CacheChannel.setValue(
                     abstractEasy2CacheChannel.unserialize(
-                            (String) getCommonCommands().get(abstractEasy2CacheChannel.getRealKey()).get(),
+                            getCommonCommands().get(abstractEasy2CacheChannel.getRealKey()).get(),
                             abstractEasy2CacheChannel.getValue().getClass()
-                    ));
+                    )
+            );
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

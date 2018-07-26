@@ -16,9 +16,11 @@
 
 package com.github.berrywang1996.easy2cache.core;
 
-import com.github.berrywang1996.easy2cache.User;
-import com.github.berrywang1996.easy2cache.UserCacheChannel;
+import com.github.berrywang1996.easy2cache.domain.Department;
+import com.github.berrywang1996.easy2cache.domain.User;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -28,8 +30,12 @@ import org.junit.Test;
 @Slf4j
 public class Easy2CacheConnectionFactoryTest {
 
-    @Test
-    public void createConnection() {
+    private Easy2CacheConnection connection;
+
+    private AbstractEasy2CacheClient client;
+
+    @Before
+    public void testCreateConnection() {
 
         // 创建配置文件用于创建连接
         Easy2CacheConfig config = new Easy2CacheConfig();
@@ -38,27 +44,58 @@ public class Easy2CacheConnectionFactoryTest {
         config.setDatabaseNum(4);
 
         // 创建连接对象
-        Easy2CacheConnection connection = Easy2CacheConnectionFactory.createConnection(config);
+        connection = Easy2CacheConnectionFactory.createConnection(config);
 
         // 获取操作客户端
-        AbstractEasy2CacheClient client = connection.getClient();
+        client = connection.getClient();
+
+    }
+
+    @Test
+    public void createJsonConnection() {
 
         // 创建保存对象
         User user = new User();
-        user.setId(100L);
-        user.setUsername("berry");
+        user.setId(1L);
+        user.setUsername("berry王");
         user.setPassword("123456");
 
         // 保存数据
         UserCacheChannel userChannel = new UserCacheChannel();
-        userChannel.setRealKey("123");
+        userChannel.setRealKey("user");
         userChannel.setValue(user);
         client.set(userChannel);
 
         // 获取数据
         UserCacheChannel userCacheChannel = client.get(userChannel);
-        User value = userCacheChannel.getValue();
-        log.info("get value from redis : {}", value);
+        User _user = userCacheChannel.getValue();
+        log.info("get value from redis : {}", _user);
+
+    }
+
+    @Test
+    public void createFstConnection() {
+
+        // 创建保存对象
+        Department department = new Department();
+        department.setId(10L);
+        department.setName("test department");
+
+        // 保存数据
+        DepartmentCacheChannel departmentChannel = new DepartmentCacheChannel();
+        departmentChannel.setRealKey("department");
+        departmentChannel.setValue(department);
+        client.set(departmentChannel);
+
+        // 获取数据
+        DepartmentCacheChannel departmentCacheChannel = client.get(departmentChannel);
+        Department _department = departmentCacheChannel.getValue();
+        log.info("get value from redis : {}", _department);
+
+    }
+
+    @After
+    public void testCloseConnection() {
 
         // 关闭客户端
         client.close();

@@ -22,6 +22,8 @@ import com.lambdaworks.redis.api.StatefulConnection;
 import com.lambdaworks.redis.cluster.RedisClusterClient;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author BerryWang1996
  * @version V1.0.0
@@ -49,6 +51,10 @@ public class Easy2CacheConnectionFactory {
             // 单机模式
             RedisClient redisClient = RedisClient.create(url);
             connection = redisClient.connect();
+        }
+        // 设置超时时间
+        if (easy2CacheConfig.getTimeout() != null) {
+            connection.setTimeout(easy2CacheConfig.getTimeout(), TimeUnit.SECONDS);
         }
         // 创建连接
         return new Easy2CacheConnection(connection);

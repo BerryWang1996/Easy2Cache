@@ -14,26 +14,19 @@
  * limitations under the License.
  */
 
-package com.github.berrywang1996.easy2cache;
+package com.github.berrywang1996.easy2cache.core;
 
-import org.junit.Test;
-import redis.clients.jedis.Jedis;
+import com.github.berrywang1996.easy2cache.domain.User;
 
 /**
  * @author BerryWang1996
  * @version V1.0.0
  */
-public class JedisTest {
+public class UserCacheChannel extends Easy2CacheJsonChannel<User> {
 
-    @Test
-    public void testJedis() {
-        Jedis jedis = new Jedis("192.168.1.233", 6379);
-        jedis.select(4);
-
-        String s = jedis.get("123");
-        System.out.println(s);
-
-        jedis.close();
+    @Override
+    public void setRealKey(String realKey) {
+        super.setRealKey(realKey);
     }
 
 }

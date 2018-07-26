@@ -16,7 +16,8 @@
 
 package com.github.berrywang1996.easy2cache.core;
 
-import com.github.berrywang1996.easy2cache.User;
+import com.github.berrywang1996.easy2cache.domain.Department;
+import com.github.berrywang1996.easy2cache.domain.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,9 +30,11 @@ public class Easy2CacheJsonChannelTest {
 
     private Easy2CacheJsonChannel<User> jsonChannel = new Easy2CacheJsonChannel<>();
 
-    private Easy2CacheByteChannel<User> byteChannel = new Easy2CacheByteChannel<>();
+    private Easy2CacheByteChannel<Department> byteChannel = new Easy2CacheByteChannel<>();
 
     private User user = new User();
+
+    private Department department = new Department();
 
     @Before
     public void testBefore() {
@@ -39,7 +42,10 @@ public class Easy2CacheJsonChannelTest {
         user.setUsername("berry");
         user.setPassword("123");
         jsonChannel.setValue(user);
-        byteChannel.setValue(user);
+
+        department.setId(20L);
+        department.setName("123");
+        byteChannel.setValue(department);
     }
 
     @Test
@@ -51,9 +57,9 @@ public class Easy2CacheJsonChannelTest {
 
     @Test
     public void testFstSerialize() {
-        byte[] byte_result = byteChannel.serialize();
-        Assert.assertArrayEquals(byte_result, byteChannel.serialize());
-        Assert.assertEquals(user, byteChannel.unserialize(byte_result, User.class));
+        String byte_result = byteChannel.serialize();
+        Assert.assertEquals(byte_result, byteChannel.serialize());
+        Assert.assertEquals(department, byteChannel.unserialize(byte_result, Department.class));
     }
 
 }

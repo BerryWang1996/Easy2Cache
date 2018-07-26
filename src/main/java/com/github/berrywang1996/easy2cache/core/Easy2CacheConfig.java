@@ -56,6 +56,12 @@ public class Easy2CacheConfig {
     @Accessors(chain = true)
     private List<SentinelNode> sentinelNodes;
 
+    /**
+     * timeout seconds
+     */
+    @Accessors(chain = true)
+    private Integer timeout = 60;
+
     String getUrl() {
         // 检查配置是否正确
         this.checkConfig();
