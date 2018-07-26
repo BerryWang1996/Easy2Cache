@@ -20,7 +20,7 @@ package com.github.berrywang1996.easy2cache.core;
  * @author BerryWang1996
  * @version V1.0.0
  */
-public abstract class AbstractEasy2CacheChannel<T> implements Easy2CacheSerializable<T> {
+public abstract class AbstractEasy2CacheChannel<T, ST> implements Easy2CacheSerializable<T, ST> {
 
     /**
      * 缓存中的key

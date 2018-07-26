@@ -20,10 +20,10 @@ package com.github.berrywang1996.easy2cache.core;
  * @author BerryWang1996
  * @version V1.0.0
  */
-public interface Easy2CacheSerializable<T> {
+public interface Easy2CacheSerializable<T, ST> {
 
-    String serialize();
+    ST serialize();
 
-    T unserialize(String data, Class<T> clz);
+    T unserialize(ST data, Class<T> clz);
 
 }

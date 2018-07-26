@@ -24,12 +24,12 @@ import lombok.extern.slf4j.Slf4j;
  * @version V1.0.0
  */
 @Slf4j
-public class Easy2CacheJSONChannel<T> extends AbstractEasy2CacheChannel<T> {
+public class Easy2CacheJsonChannel<T> extends AbstractEasy2CacheChannel<T, String> {
 
     @Override
     public String serialize() {
         if (log.isDebugEnabled()) {
-            log.debug("execute serialize:{}", JSON.toJSONString(this.getValue()));
+            log.debug("execute fastjson serialize:{}", JSON.toJSONString(this.getValue()));
         }
         return JSON.toJSONString(this.getValue());
     }
@@ -37,7 +37,7 @@ public class Easy2CacheJSONChannel<T> extends AbstractEasy2CacheChannel<T> {
     @Override
     public T unserialize(String data, Class<T> clz) {
         if (log.isDebugEnabled()) {
-            log.debug("execute unserialize:{}", JSON.parseObject(data, clz));
+            log.debug("execute fastjson unserialize:{}", JSON.parseObject(data, clz));
         }
         return JSON.parseObject(data, clz);
     }

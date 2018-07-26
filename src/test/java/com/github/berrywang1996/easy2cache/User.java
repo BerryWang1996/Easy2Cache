@@ -18,12 +18,14 @@ package com.github.berrywang1996.easy2cache;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author BerryWang1996
  * @version V1.0.0
  */
 @Data
-public class User {
+public class User implements Serializable {
 
     private Long id;
 

@@ -25,29 +25,35 @@ import org.junit.Test;
  * @author BerryWang1996
  * @version V1.0.0
  */
-public class Easy2CacheJSONChannelTest {
+public class Easy2CacheJsonChannelTest {
 
-    private Easy2CacheJSONChannel<User> channel = new Easy2CacheJSONChannel<>();
+    private Easy2CacheJsonChannel<User> jsonChannel = new Easy2CacheJsonChannel<>();
+
+    private Easy2CacheByteChannel<User> byteChannel = new Easy2CacheByteChannel<>();
 
     private User user = new User();
-
-    private static final String RESULT = "{\"id\":10,\"password\":\"123\",\"username\":\"berry\"}";
 
     @Before
     public void testBefore() {
         user.setId(10L);
         user.setUsername("berry");
         user.setPassword("123");
-        channel.setValue(user);
+        jsonChannel.setValue(user);
+        byteChannel.setValue(user);
     }
 
     @Test
-    public void serialize() {
-        Assert.assertEquals(RESULT, channel.serialize());
+    public void testFastjsonSerialize() {
+        String json_result = "{\"id\":10,\"password\":\"123\",\"username\":\"berry\"}";
+        Assert.assertEquals(json_result, jsonChannel.serialize());
+        Assert.assertEquals(user, jsonChannel.unserialize(json_result, User.class));
     }
 
     @Test
-    public void unserialize() {
-        Assert.assertEquals(user, channel.unserialize(RESULT, User.class));
+    public void testFstSerialize() {
+        byte[] byte_result = byteChannel.serialize();
+        Assert.assertArrayEquals(byte_result, byteChannel.serialize());
+        Assert.assertEquals(user, byteChannel.unserialize(byte_result, User.class));
     }
+
 }
