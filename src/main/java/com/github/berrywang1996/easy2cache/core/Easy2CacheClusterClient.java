@@ -16,6 +16,7 @@
 
 package com.github.berrywang1996.easy2cache.core;
 
+import com.github.berrywang1996.easy2cache.channel.AbstractEasy2CacheChannel;
 import com.lambdaworks.redis.cluster.api.async.RedisAdvancedClusterAsyncCommands;
 
 import java.util.concurrent.ExecutionException;

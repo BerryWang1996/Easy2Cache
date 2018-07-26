@@ -14,31 +14,34 @@
  * limitations under the License.
  */
 
-package com.github.berrywang1996.easy2cache.core;
+package com.github.berrywang1996.easy2cache.channel;
 
-import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.nustaq.serialization.FSTConfiguration;
 
 /**
  * @author BerryWang1996
  * @version V1.0.0
  */
 @Slf4j
-public class Easy2CacheJsonChannel<T> extends AbstractEasy2CacheChannel<T, String> {
+public class Easy2CacheByteChannel<T> extends AbstractEasy2CacheChannel<T, byte[]> {
+
+    private FSTConfiguration fstConfiguration = FSTConfiguration.createDefaultConfiguration();
+
     @Override
-    public String serialize() {
+    public byte[] serialize() {
         if (log.isDebugEnabled()) {
-            log.debug("execute fastjson serialize:{}", JSON.toJSONString(this.getValue()));
+            log.debug("execute fst serialize:{}", fstConfiguration.asByteArray(this.getValue()));
         }
-        return JSON.toJSONString(this.getValue());
+        return fstConfiguration.asByteArray(this.getValue());
     }
 
     @Override
-    public T unserialize(String data, Class<T> clz) {
+    public T unserialize(byte[] data, Class<T> clz) {
         if (log.isDebugEnabled()) {
-            log.debug("execute fastjson unserialize:{}", JSON.parseObject(data, clz));
+            log.debug("execute fst unserialize:{}", fstConfiguration.asObject(data));
         }
-        return JSON.parseObject(data, clz);
+        return (T) fstConfiguration.asObject(data);
     }
 
 }

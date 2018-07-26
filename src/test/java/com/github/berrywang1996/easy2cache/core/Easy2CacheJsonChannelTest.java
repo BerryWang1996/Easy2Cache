@@ -16,6 +16,8 @@
 
 package com.github.berrywang1996.easy2cache.core;
 
+import com.github.berrywang1996.easy2cache.channel.Easy2CacheByteChannel;
+import com.github.berrywang1996.easy2cache.channel.Easy2CacheJsonChannel;
 import com.github.berrywang1996.easy2cache.domain.Department;
 import com.github.berrywang1996.easy2cache.domain.User;
 import org.junit.Assert;

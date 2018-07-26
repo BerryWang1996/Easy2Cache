@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.berrywang1996.easy2cache.core;
+package com.github.berrywang1996.easy2cache.serialize;
 
 import com.lambdaworks.redis.codec.ByteArrayCodec;
 import com.lambdaworks.redis.codec.RedisCodec;

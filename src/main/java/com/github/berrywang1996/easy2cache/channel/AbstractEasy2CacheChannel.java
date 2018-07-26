@@ -14,16 +14,40 @@
  * limitations under the License.
  */
 
-package com.github.berrywang1996.easy2cache.core;
+package com.github.berrywang1996.easy2cache.channel;
+
+import com.github.berrywang1996.easy2cache.serialize.Easy2CacheSerializable;
 
 /**
  * @author BerryWang1996
  * @version V1.0.0
  */
-public interface Easy2CacheSerializable<T, ST> {
+public abstract class AbstractEasy2CacheChannel<T, ST> implements Easy2CacheSerializable<T, ST> {
 
-    ST serialize();
+    /**
+     * 缓存中的key
+     */
+    private String realKey;
 
-    T unserialize(ST data, Class<T> clz);
+    /**
+     * 缓存的value
+     */
+    private T value;
+
+    public String getRealKey() {
+        return realKey;
+    }
+
+    public void setRealKey(String realKey) {
+        this.realKey = realKey;
+    }
+
+    public T getValue() {
+        return value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
+    }
 
 }
