@@ -16,7 +16,6 @@
 
 package com.github.berrywang1996.easy2cache.core;
 
-import com.github.berrywang1996.easy2cache.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.nustaq.serialization.FSTConfiguration;
 
@@ -32,8 +31,7 @@ public class Easy2CacheByteChannel<T> extends AbstractEasy2CacheChannel<T, byte[
     @Override
     public byte[] serialize() {
         if (log.isDebugEnabled()) {
-            log.debug("execute fst serialize:{}",
-                    StringUtil.byteArrayToHexStr(fstConfiguration.asByteArray(this.getValue())));
+            log.debug("execute fst serialize:{}", fstConfiguration.asByteArray(this.getValue()));
         }
         return fstConfiguration.asByteArray(this.getValue());
     }

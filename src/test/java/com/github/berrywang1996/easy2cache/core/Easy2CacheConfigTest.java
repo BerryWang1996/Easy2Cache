@@ -22,8 +22,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
-
 /**
  * @author BerryWang1996
  * @version V1.0.0
