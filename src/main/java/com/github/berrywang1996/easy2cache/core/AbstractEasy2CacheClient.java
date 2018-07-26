@@ -20,39 +20,76 @@ import com.lambdaworks.redis.api.async.RedisAsyncCommands;
 import com.lambdaworks.redis.cluster.api.async.RedisAdvancedClusterAsyncCommands;
 import lombok.Getter;
 
+import javax.naming.OperationNotSupportedException;
+
 /**
  * @author BerryWang1996
  * @version V1.0.0
  */
-@Getter
 public abstract class AbstractEasy2CacheClient {
 
-    private RedisAsyncCommands commonCommands;
+    private RedisAsyncCommands stringStringCommands;
 
-    private RedisAdvancedClusterAsyncCommands clusterAsyncCommands;
+    private RedisAsyncCommands stringBytesCommands;
 
-    public AbstractEasy2CacheClient(RedisAsyncCommands commonCommands) {
-        this.commonCommands = commonCommands;
+    private RedisAdvancedClusterAsyncCommands clusterStringStringCommands;
+
+    private RedisAdvancedClusterAsyncCommands clusterStringBytesCommands;
+
+    AbstractEasy2CacheClient(RedisAsyncCommands stringStringCommands,
+                             RedisAsyncCommands stringBytesCommands) {
+        this.stringStringCommands = stringStringCommands;
+        this.stringBytesCommands = stringBytesCommands;
     }
 
-    public AbstractEasy2CacheClient(RedisAdvancedClusterAsyncCommands clusterAsyncCommands) {
-        this.clusterAsyncCommands = clusterAsyncCommands;
+    AbstractEasy2CacheClient(RedisAdvancedClusterAsyncCommands clusterStringStringCommands,
+                             RedisAdvancedClusterAsyncCommands clusterStringBytesCommands) {
+        this.clusterStringStringCommands = clusterStringStringCommands;
+        this.clusterStringBytesCommands = clusterStringBytesCommands;
     }
 
     public abstract void set(AbstractEasy2CacheChannel abstractEasy2CacheChannel);
 
     public abstract <T> T get(T easy2CacheChannel);
 
-    public <T> AbstractEasy2CacheChannel castEasy2CacheChannel(T easy2CacheChannel) {
+    <T> AbstractEasy2CacheChannel castEasy2CacheChannel(T easy2CacheChannel) {
         return (AbstractEasy2CacheChannel) easy2CacheChannel;
     }
 
-    public void close() {
-        if (this.commonCommands != null) {
-            this.commonCommands.close();
+    RedisAsyncCommands getCommonCommands(AbstractEasy2CacheChannel abstractEasy2CacheChannel) {
+        if (abstractEasy2CacheChannel instanceof Easy2CacheJsonChannel) {
+            return this.stringStringCommands;
+        } else if (abstractEasy2CacheChannel instanceof Easy2CacheByteChannel) {
+            return this.stringBytesCommands;
+        } else {
+            new OperationNotSupportedException().printStackTrace();
         }
-        if (this.clusterAsyncCommands != null) {
-            this.clusterAsyncCommands.close();
+        return null;
+    }
+
+    RedisAdvancedClusterAsyncCommands getClusterCommands(AbstractEasy2CacheChannel abstractEasy2CacheChannel) {
+        if (abstractEasy2CacheChannel instanceof Easy2CacheJsonChannel) {
+            return this.clusterStringStringCommands;
+        } else if (abstractEasy2CacheChannel instanceof Easy2CacheByteChannel) {
+            return this.clusterStringBytesCommands;
+        } else {
+            new OperationNotSupportedException().printStackTrace();
+        }
+        return null;
+    }
+
+    public void close() {
+        if (this.stringStringCommands != null) {
+            this.stringStringCommands.close();
+        }
+        if (this.stringBytesCommands != null) {
+            this.stringBytesCommands.close();
+        }
+        if (this.clusterStringStringCommands != null) {
+            this.clusterStringStringCommands.close();
+        }
+        if (this.clusterStringBytesCommands != null) {
+            this.clusterStringBytesCommands.close();
         }
     }
 }

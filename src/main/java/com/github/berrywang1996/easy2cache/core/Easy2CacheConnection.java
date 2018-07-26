@@ -28,29 +28,41 @@ import java.rmi.activation.UnknownObjectException;
  */
 public class Easy2CacheConnection {
 
-    private StatefulConnection connection;
+    private StatefulConnection<String, String> stringStringconnection;
 
-    Easy2CacheConnection(StatefulConnection connection) {
-        this.connection = connection;
+    private StatefulConnection<String, byte[]> stringBytesconnection;
+
+    Easy2CacheConnection(StatefulConnection<String, String> stringStringconnection,
+                         StatefulConnection<String, byte[]> stringBytesconnection) {
+        this.stringStringconnection = stringStringconnection;
+        this.stringBytesconnection = stringBytesconnection;
     }
 
     public AbstractEasy2CacheClient getClient() {
-        if (this.connection instanceof StatefulRedisClusterConnection) {
+        if (this.stringStringconnection instanceof StatefulRedisClusterConnection
+                && this.stringBytesconnection instanceof StatefulRedisClusterConnection) {
             // 集群模式
-            return new Easy2CacheClusterClient(((StatefulRedisClusterConnection) this.connection).async());
-        } else if (this.connection instanceof StatefulRedisConnection) {
+            return new Easy2CacheClusterClient(
+                    ((StatefulRedisClusterConnection) this.stringStringconnection).async(),
+                    ((StatefulRedisClusterConnection) this.stringBytesconnection).async()
+            );
+        } else if (this.stringStringconnection instanceof StatefulRedisConnection
+                && stringBytesconnection instanceof StatefulRedisConnection) {
             // 哨兵或单机模式
-            return new Easy2CacheCommonClient(((StatefulRedisConnection) this.connection).async());
+            return new Easy2CacheCommonClient(
+                    ((StatefulRedisConnection) this.stringStringconnection).async(),
+                    ((StatefulRedisConnection) this.stringBytesconnection).async()
+            );
         } else {
-            new UnknownObjectException("unknown connection, the connection must instance of " +
+            new UnknownObjectException("unknown stringStringconnection, the stringStringconnection must instance of " +
                     "\"StatefulRedisClusterConnection\" or \"StatefulRedisConnection\"").printStackTrace();
         }
         return null;
     }
 
     public void close() {
-        if (this.connection != null) {
-            connection.close();
+        if (this.stringStringconnection != null) {
+            stringStringconnection.close();
         }
     }
 }

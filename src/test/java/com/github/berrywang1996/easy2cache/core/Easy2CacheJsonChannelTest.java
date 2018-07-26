@@ -39,26 +39,26 @@ public class Easy2CacheJsonChannelTest {
     @Before
     public void testBefore() {
         user.setId(10L);
-        user.setUsername("berry");
+        user.setUsername("berry王");
         user.setPassword("123");
         jsonChannel.setValue(user);
 
         department.setId(20L);
-        department.setName("123");
+        department.setName("test部门");
         byteChannel.setValue(department);
     }
 
     @Test
     public void testFastjsonSerialize() {
-        String json_result = "{\"id\":10,\"password\":\"123\",\"username\":\"berry\"}";
+        String json_result = "{\"id\":10,\"password\":\"123\",\"username\":\"berry王\"}";
         Assert.assertEquals(json_result, jsonChannel.serialize());
         Assert.assertEquals(user, jsonChannel.unserialize(json_result, User.class));
     }
 
     @Test
     public void testFstSerialize() {
-        String byte_result = byteChannel.serialize();
-        Assert.assertEquals(byte_result, byteChannel.serialize());
+        byte[] byte_result = byteChannel.serialize();
+        Assert.assertArrayEquals(byte_result, byteChannel.serialize());
         Assert.assertEquals(department, byteChannel.unserialize(byte_result, Department.class));
     }
 

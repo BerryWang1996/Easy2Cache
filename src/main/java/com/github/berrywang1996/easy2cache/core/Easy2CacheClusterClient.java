@@ -24,14 +24,15 @@ import com.lambdaworks.redis.cluster.api.async.RedisAdvancedClusterAsyncCommands
  */
 public class Easy2CacheClusterClient extends AbstractEasy2CacheClient {
 
-    public Easy2CacheClusterClient(RedisAdvancedClusterAsyncCommands async) {
-        super(async);
+    public Easy2CacheClusterClient(RedisAdvancedClusterAsyncCommands stringStringCommands,
+                                   RedisAdvancedClusterAsyncCommands stringBytesCommands) {
+        super(stringStringCommands, stringBytesCommands);
     }
 
     @Override
     public void set(AbstractEasy2CacheChannel abstractEasy2CacheChannel) {
-        super.getClusterAsyncCommands().set(abstractEasy2CacheChannel.getRealKey(), abstractEasy2CacheChannel
-                .serialize());
+        getClusterCommands(abstractEasy2CacheChannel).set(abstractEasy2CacheChannel.getRealKey(),
+                abstractEasy2CacheChannel.serialize());
     }
 
     @Override

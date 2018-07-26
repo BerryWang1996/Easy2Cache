@@ -26,13 +26,14 @@ import java.util.concurrent.ExecutionException;
  */
 public class Easy2CacheCommonClient extends AbstractEasy2CacheClient {
 
-    public Easy2CacheCommonClient(RedisAsyncCommands async) {
-        super(async);
+    public Easy2CacheCommonClient(RedisAsyncCommands stringStringCommands,
+                                  RedisAsyncCommands stringBytesCommands) {
+        super(stringStringCommands, stringBytesCommands);
     }
 
     @Override
     public void set(AbstractEasy2CacheChannel abstractEasy2CacheChannel) {
-        getCommonCommands().set(
+        getCommonCommands(abstractEasy2CacheChannel).set(
                 abstractEasy2CacheChannel.getRealKey(),
                 abstractEasy2CacheChannel.serialize()
         );
@@ -44,7 +45,8 @@ public class Easy2CacheCommonClient extends AbstractEasy2CacheClient {
         try {
             abstractEasy2CacheChannel.setValue(
                     abstractEasy2CacheChannel.unserialize(
-                            getCommonCommands().get(abstractEasy2CacheChannel.getRealKey()).get(),
+                            getCommonCommands(abstractEasy2CacheChannel)
+                                    .get(abstractEasy2CacheChannel.getRealKey()).get(),
                             abstractEasy2CacheChannel.getValue().getClass()
                     )
             );

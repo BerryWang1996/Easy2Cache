@@ -25,26 +25,25 @@ import org.nustaq.serialization.FSTConfiguration;
  * @version V1.0.0
  */
 @Slf4j
-public class Easy2CacheByteChannel<T> extends AbstractEasy2CacheChannel<T, String> {
+public class Easy2CacheByteChannel<T> extends AbstractEasy2CacheChannel<T, byte[]> {
 
     private FSTConfiguration fstConfiguration = FSTConfiguration.createDefaultConfiguration();
 
     @Override
-    public String serialize() {
+    public byte[] serialize() {
         if (log.isDebugEnabled()) {
             log.debug("execute fst serialize:{}",
                     StringUtil.byteArrayToHexStr(fstConfiguration.asByteArray(this.getValue())));
         }
-        return StringUtil.byteArrayToHexStr(fstConfiguration.asByteArray(this.getValue()));
+        return fstConfiguration.asByteArray(this.getValue());
     }
 
     @Override
-    public T unserialize(String data, Class<T> clz) {
+    public T unserialize(byte[] data, Class<T> clz) {
         if (log.isDebugEnabled()) {
-            log.debug("execute fst unserialize:{}",
-                    fstConfiguration.asObject(StringUtil.hexStrToByteArray(data)));
+            log.debug("execute fst unserialize:{}", fstConfiguration.asObject(data));
         }
-        return (T) fstConfiguration.asObject(StringUtil.hexStrToByteArray(data));
+        return (T) fstConfiguration.asObject(data);
     }
 
 }

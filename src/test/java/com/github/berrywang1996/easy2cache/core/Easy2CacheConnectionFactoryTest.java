@@ -79,7 +79,7 @@ public class Easy2CacheConnectionFactoryTest {
         // 创建保存对象
         Department department = new Department();
         department.setId(10L);
-        department.setName("test department");
+        department.setName("测试部门 department");
 
         // 保存数据
         DepartmentCacheChannel departmentChannel = new DepartmentCacheChannel();
