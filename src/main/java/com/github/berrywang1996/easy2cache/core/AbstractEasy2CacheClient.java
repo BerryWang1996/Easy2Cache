@@ -28,7 +28,7 @@ import javax.naming.OperationNotSupportedException;
  * @author BerryWang1996
  * @version V1.0.0
  */
-public abstract class AbstractEasy2CacheClient {
+public abstract class AbstractEasy2CacheClient implements Easy2CacheCommand {
 
     private RedisAsyncCommands<String, String> stringStringCommands;
 
@@ -49,10 +49,6 @@ public abstract class AbstractEasy2CacheClient {
         this.clusterStringStringCommands = clusterStringStringCommands;
         this.clusterStringBytesCommands = clusterStringBytesCommands;
     }
-
-    public abstract void set(AbstractEasy2CacheChannel abstractEasy2CacheChannel);
-
-    public abstract <T, ST> T get(AbstractEasy2CacheChannel<T, ST> easy2CacheChannel);
 
     <T> AbstractEasy2CacheChannel castEasy2CacheChannel(T easy2CacheChannel) {
         return (AbstractEasy2CacheChannel) easy2CacheChannel;
