@@ -19,8 +19,6 @@ package com.github.berrywang1996.easy2cache.core;
 import com.lambdaworks.redis.codec.ByteArrayCodec;
 import com.lambdaworks.redis.codec.RedisCodec;
 import com.lambdaworks.redis.codec.StringCodec;
-import com.lambdaworks.redis.protocol.LettuceCharsets;
-import lombok.extern.slf4j.Slf4j;
 
 import java.nio.ByteBuffer;
 

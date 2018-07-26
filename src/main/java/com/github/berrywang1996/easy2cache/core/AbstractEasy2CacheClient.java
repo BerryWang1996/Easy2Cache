@@ -18,7 +18,6 @@ package com.github.berrywang1996.easy2cache.core;
 
 import com.lambdaworks.redis.api.async.RedisAsyncCommands;
 import com.lambdaworks.redis.cluster.api.async.RedisAdvancedClusterAsyncCommands;
-import lombok.Getter;
 
 import javax.naming.OperationNotSupportedException;
 
