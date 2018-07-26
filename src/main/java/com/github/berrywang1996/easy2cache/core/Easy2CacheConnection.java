@@ -43,15 +43,15 @@ public class Easy2CacheConnection {
                 && this.stringBytesconnection instanceof StatefulRedisClusterConnection) {
             // 集群模式
             return new Easy2CacheClusterClient(
-                    ((StatefulRedisClusterConnection) this.stringStringconnection).async(),
-                    ((StatefulRedisClusterConnection) this.stringBytesconnection).async()
+                    ((StatefulRedisClusterConnection<String, String>) this.stringStringconnection).async(),
+                    ((StatefulRedisClusterConnection<String, byte[]>) this.stringBytesconnection).async()
             );
         } else if (this.stringStringconnection instanceof StatefulRedisConnection
                 && stringBytesconnection instanceof StatefulRedisConnection) {
             // 哨兵或单机模式
             return new Easy2CacheCommonClient(
-                    ((StatefulRedisConnection) this.stringStringconnection).async(),
-                    ((StatefulRedisConnection) this.stringBytesconnection).async()
+                    ((StatefulRedisConnection<String, String>) this.stringStringconnection).async(),
+                    ((StatefulRedisConnection<String, byte[]>) this.stringBytesconnection).async()
             );
         } else {
             new UnknownObjectException("unknown stringStringconnection, the stringStringconnection must instance of " +

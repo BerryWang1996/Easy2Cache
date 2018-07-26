@@ -27,22 +27,22 @@ import javax.naming.OperationNotSupportedException;
  */
 public abstract class AbstractEasy2CacheClient {
 
-    private RedisAsyncCommands stringStringCommands;
+    private RedisAsyncCommands<String, String> stringStringCommands;
 
-    private RedisAsyncCommands stringBytesCommands;
+    private RedisAsyncCommands<String, byte[]> stringBytesCommands;
 
-    private RedisAdvancedClusterAsyncCommands clusterStringStringCommands;
+    private RedisAdvancedClusterAsyncCommands<String, String> clusterStringStringCommands;
 
-    private RedisAdvancedClusterAsyncCommands clusterStringBytesCommands;
+    private RedisAdvancedClusterAsyncCommands<String, byte[]> clusterStringBytesCommands;
 
-    AbstractEasy2CacheClient(RedisAsyncCommands stringStringCommands,
-                             RedisAsyncCommands stringBytesCommands) {
+    AbstractEasy2CacheClient(RedisAsyncCommands<String, String> stringStringCommands,
+                             RedisAsyncCommands<String, byte[]> stringBytesCommands) {
         this.stringStringCommands = stringStringCommands;
         this.stringBytesCommands = stringBytesCommands;
     }
 
-    AbstractEasy2CacheClient(RedisAdvancedClusterAsyncCommands clusterStringStringCommands,
-                             RedisAdvancedClusterAsyncCommands clusterStringBytesCommands) {
+    AbstractEasy2CacheClient(RedisAdvancedClusterAsyncCommands<String, String> clusterStringStringCommands,
+                             RedisAdvancedClusterAsyncCommands<String, byte[]> clusterStringBytesCommands) {
         this.clusterStringStringCommands = clusterStringStringCommands;
         this.clusterStringBytesCommands = clusterStringBytesCommands;
     }

@@ -26,8 +26,8 @@ import java.util.concurrent.ExecutionException;
  */
 public class Easy2CacheCommonClient extends AbstractEasy2CacheClient {
 
-    public Easy2CacheCommonClient(RedisAsyncCommands stringStringCommands,
-                                  RedisAsyncCommands stringBytesCommands) {
+    Easy2CacheCommonClient(RedisAsyncCommands<String, String> stringStringCommands,
+                           RedisAsyncCommands<String, byte[]> stringBytesCommands) {
         super(stringStringCommands, stringBytesCommands);
     }
 
