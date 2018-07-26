@@ -20,6 +20,7 @@ import com.github.berrywang1996.easy2cache.domain.Department;
 import com.github.berrywang1996.easy2cache.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -69,6 +70,80 @@ public class Easy2CacheConnectionFactoryTest {
         // 获取数据
         User _user = client.get(userChannel);
         log.info("get value from redis : {}", _user);
+
+    }
+
+    @Test
+    public void testNx() {
+
+        // 创建保存对象
+        User user = new User();
+        user.setId(1L);
+        user.setUsername("berry王");
+        user.setPassword("123456");
+
+        // 保存数据nx
+        UserCacheChannel userChannel2 = new UserCacheChannel();
+        userChannel2.setRealKey("testNx");
+        userChannel2.setValue(user);
+        Assert.assertTrue(client.setnx(userChannel2));
+
+        // 保存数据nx
+        UserCacheChannel userChannel3 = new UserCacheChannel();
+        userChannel3.setRealKey("testNx");
+        userChannel3.setValue(user);
+        Assert.assertFalse(client.setnx(userChannel3));
+
+    }
+
+    // @Test
+    // TODO 验证未通过
+    public void testXx() {
+
+        // 创建保存对象
+        User user = new User();
+        user.setId(1L);
+        user.setUsername("berry王");
+        user.setPassword("123456");
+
+        // 保存数据xx
+        UserCacheChannel userChannel1 = new UserCacheChannel();
+        userChannel1.setRealKey("testXx");
+        userChannel1.setValue(user);
+        client.set(userChannel1);
+
+        user.setPassword("new password");
+
+        // 保存数据xx
+        UserCacheChannel userChannel2 = new UserCacheChannel();
+        userChannel2.setRealKey("testXx");
+        userChannel2.setValue(user);
+        client.setxx(userChannel2);
+        Assert.assertNotEquals(client.get(userChannel2), user);
+
+    }
+
+    @Test
+    public void testDel() {
+
+        // 创建保存对象
+        User user = new User();
+        user.setId(1L);
+        user.setUsername("berry王");
+        user.setPassword("123456");
+
+        // 保存数据
+        UserCacheChannel userChannel1 = new UserCacheChannel();
+        userChannel1.setRealKey("testDel");
+        userChannel1.setValue(user);
+        client.set(userChannel1);
+
+        // 删除数据
+        UserCacheChannel userChannel2 = new UserCacheChannel();
+        userChannel2.setRealKey("testDel");
+        userChannel2.setValue(user);
+        Assert.assertEquals(client.del(userChannel2), 1);
+        Assert.assertEquals(client.del(userChannel2), 0);
 
     }
 

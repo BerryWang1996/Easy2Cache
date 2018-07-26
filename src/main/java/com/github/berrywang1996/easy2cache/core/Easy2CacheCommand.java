@@ -24,7 +24,13 @@ import com.github.berrywang1996.easy2cache.channel.AbstractEasy2CacheChannel;
  */
 public interface Easy2CacheCommand {
 
-    void set(AbstractEasy2CacheChannel abstractEasy2CacheChannel);
+    void set(AbstractEasy2CacheChannel easy2CacheChannel);
+
+    boolean setnx(AbstractEasy2CacheChannel easy2CacheChannel);
+
+    void setxx(AbstractEasy2CacheChannel easy2CacheChannel);
+
+    long del(AbstractEasy2CacheChannel easy2CacheChannel);
 
     <T, ST> T get(AbstractEasy2CacheChannel<T, ST> easy2CacheChannel);
 

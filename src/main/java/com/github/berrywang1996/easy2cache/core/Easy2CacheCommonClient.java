@@ -17,6 +17,7 @@
 package com.github.berrywang1996.easy2cache.core;
 
 import com.github.berrywang1996.easy2cache.channel.AbstractEasy2CacheChannel;
+import com.lambdaworks.redis.SetArgs;
 import com.lambdaworks.redis.api.async.RedisAsyncCommands;
 
 import java.util.concurrent.ExecutionException;
@@ -33,11 +34,50 @@ public class Easy2CacheCommonClient extends AbstractEasy2CacheClient {
     }
 
     @Override
-    public void set(AbstractEasy2CacheChannel abstractEasy2CacheChannel) {
-        getCommonCommands(abstractEasy2CacheChannel).set(
-                abstractEasy2CacheChannel.getRealKey(),
-                abstractEasy2CacheChannel.serialize()
+    public void set(AbstractEasy2CacheChannel easy2CacheChannel) {
+        getCommonCommands(easy2CacheChannel).set(
+                easy2CacheChannel.getRealKey(),
+                easy2CacheChannel.serialize()
         );
+    }
+
+    @Override
+    public boolean setnx(AbstractEasy2CacheChannel easy2CacheChannel) {
+        try {
+            return (boolean) getCommonCommands(easy2CacheChannel).setnx(
+                    easy2CacheChannel.getRealKey(),
+                    easy2CacheChannel.serialize()
+            ).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public void setxx(AbstractEasy2CacheChannel easy2CacheChannel) {
+        try {
+            getCommonCommands(easy2CacheChannel).set(
+                    easy2CacheChannel.getRealKey(),
+                    easy2CacheChannel.serialize(),
+                    new SetArgs().xx()
+            ).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public long del(AbstractEasy2CacheChannel easy2CacheChannel) {
+        try {
+            return (long) getCommonCommands(easy2CacheChannel).del(
+                    easy2CacheChannel.getRealKey(),
+                    easy2CacheChannel.serialize()
+            ).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override

@@ -34,6 +34,16 @@ public abstract class AbstractEasy2CacheChannel<T, ST> implements Easy2CacheSeri
      */
     private T value;
 
+    /**
+     * 缓存的过期时间（秒）
+     */
+    private long expireSecond;
+
+    /**
+     * 缓存的过期时间（毫秒）
+     */
+    private long expireMilliseconds;
+
     public String getRealKey() {
         return realKey;
     }
