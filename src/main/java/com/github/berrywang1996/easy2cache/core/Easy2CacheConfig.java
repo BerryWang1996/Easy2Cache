@@ -90,6 +90,9 @@ public class Easy2CacheConfig {
                     }
                 }
             }
+            if (this.timeout != null && timeout < 0) {
+                throw new IllegalArgumentException("redis timeout seconds must greater than 0!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
@@ -150,16 +153,16 @@ public class Easy2CacheConfig {
     public static class SentinelNode {
 
         @Accessors(chain = true)
-        private String host;
+        private String host = "localhost";
 
         @Accessors(chain = true)
-        private String port;
+        private Integer port = 6379;
 
         @Accessors(chain = true)
         private String password;
 
         @Accessors(chain = true)
-        private Integer databaseNum;
+        private Integer databaseNum = 0;
 
     }
 
