@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.berrywang1996.easy2cache;
+package com.github.berrywang1996.easy2cache.core;
 
 import com.lambdaworks.redis.api.async.RedisAsyncCommands;
 import com.lambdaworks.redis.cluster.api.async.RedisAdvancedClusterAsyncCommands;
@@ -25,23 +25,27 @@ import lombok.Getter;
  * @version V1.0.0
  */
 @Getter
-public abstract class Easy2CacheClient {
+public abstract class AbstractEasy2CacheClient {
 
     private RedisAsyncCommands commonCommands;
 
     private RedisAdvancedClusterAsyncCommands clusterAsyncCommands;
 
-    public Easy2CacheClient(RedisAsyncCommands commonCommands) {
+    public AbstractEasy2CacheClient(RedisAsyncCommands commonCommands) {
         this.commonCommands = commonCommands;
     }
 
-    public Easy2CacheClient(RedisAdvancedClusterAsyncCommands clusterAsyncCommands) {
+    public AbstractEasy2CacheClient(RedisAdvancedClusterAsyncCommands clusterAsyncCommands) {
         this.clusterAsyncCommands = clusterAsyncCommands;
     }
 
-    public abstract void set(Easy2CacheChannel easy2CacheChannel);
+    public abstract void set(AbstractEasy2CacheChannel abstractEasy2CacheChannel);
 
     public abstract <T> T get(T easy2CacheChannel);
+
+    public <T> AbstractEasy2CacheChannel castEasy2CacheChannel(T easy2CacheChannel) {
+        return (AbstractEasy2CacheChannel) easy2CacheChannel;
+    }
 
     public void close() {
         if (this.commonCommands != null) {

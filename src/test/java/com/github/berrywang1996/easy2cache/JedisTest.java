@@ -16,38 +16,24 @@
 
 package com.github.berrywang1996.easy2cache;
 
-import java.io.Serializable;
+import org.junit.Test;
+import redis.clients.jedis.Jedis;
 
 /**
  * @author 王伯瑞
  * @version V1.0.0
  */
-public abstract class Easy2CacheChannel<T> implements Serializable {
+public class JedisTest {
 
-    /**
-     * 缓存中的key
-     */
-    private String realKey;
+    @Test
+    public void testJedis() {
+        Jedis jedis = new Jedis("192.168.1.233", 6379);
+        jedis.select(4);
 
-    /**
-     * 缓存的value
-     */
-    private T value;
+        String s = jedis.get("123");
+        System.out.println(s);
 
-    public String getRealKey() {
-        return realKey;
-    }
-
-    public void setRealKey(String realKey) {
-        this.realKey = realKey;
-    }
-
-    public T getValue() {
-        return value;
-    }
-
-    public void setValue(T value) {
-        this.value = value;
+        jedis.close();
     }
 
 }

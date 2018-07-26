@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.berrywang1996.easy2cache;
+package com.github.berrywang1996.easy2cache.core;
 
 import com.lambdaworks.redis.api.StatefulConnection;
 import com.lambdaworks.redis.api.StatefulRedisConnection;
@@ -30,11 +30,11 @@ public class Easy2CacheConnection {
 
     private StatefulConnection connection;
 
-    public Easy2CacheConnection(StatefulConnection connection) {
+    Easy2CacheConnection(StatefulConnection connection) {
         this.connection = connection;
     }
 
-    public Easy2CacheClient getClient() {
+    public AbstractEasy2CacheClient getClient() {
         if (this.connection instanceof StatefulRedisClusterConnection) {
             // 集群模式
             return new Easy2CacheClusterClient(((StatefulRedisClusterConnection) this.connection).async());

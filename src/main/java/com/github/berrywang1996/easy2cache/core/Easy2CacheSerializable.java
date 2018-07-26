@@ -14,28 +14,16 @@
  * limitations under the License.
  */
 
-package com.github.berrywang1996.easy2cache;
-
-import com.lambdaworks.redis.api.async.RedisAsyncCommands;
+package com.github.berrywang1996.easy2cache.core;
 
 /**
  * @author 王伯瑞
  * @version V1.0.0
  */
-public class Easy2CacheCommonClient extends Easy2CacheClient {
+public interface Easy2CacheSerializable<T> {
 
-    public Easy2CacheCommonClient(RedisAsyncCommands async) {
-        super(async);
-    }
+    String serialize();
 
-    @Override
-    public void set(Easy2CacheChannel easy2CacheChannel) {
-        super.getCommonCommands().set(easy2CacheChannel.getRealKey(), easy2CacheChannel.getValue());
-    }
-
-    @Override
-    public <T> T get(T easy2CacheChannel) {
-        return null;
-    }
+    T unserialize(String data, Class<T> clz);
 
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.berrywang1996.easy2cache;
+package com.github.berrywang1996.easy2cache.core;
 
 import com.github.berrywang1996.easy2cache.consts.RedisMode;
 import com.github.berrywang1996.easy2cache.util.StringUtil;
@@ -56,7 +56,7 @@ public class Easy2CacheConfig {
     @Accessors(chain = true)
     private List<SentinelNode> sentinelNodes;
 
-    public String getUrl() {
+    String getUrl() {
         // 检查配置是否正确
         this.checkConfig();
         return generateUrl();
@@ -141,7 +141,7 @@ public class Easy2CacheConfig {
 
     @Getter
     @Setter
-    public class SentinelNode {
+    public static class SentinelNode {
 
         @Accessors(chain = true)
         private String host;

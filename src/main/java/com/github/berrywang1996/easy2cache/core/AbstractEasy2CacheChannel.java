@@ -14,28 +14,38 @@
  * limitations under the License.
  */
 
-package com.github.berrywang1996.easy2cache;
-
-import com.lambdaworks.redis.cluster.api.async.RedisAdvancedClusterAsyncCommands;
+package com.github.berrywang1996.easy2cache.core;
 
 /**
  * @author 王伯瑞
  * @version V1.0.0
  */
-public class Easy2CacheClusterClient extends Easy2CacheClient {
+public abstract class AbstractEasy2CacheChannel<T> implements Easy2CacheSerializable<T> {
 
-    public Easy2CacheClusterClient(RedisAdvancedClusterAsyncCommands async) {
-        super(async);
+    /**
+     * 缓存中的key
+     */
+    private String realKey;
+
+    /**
+     * 缓存的value
+     */
+    private T value;
+
+    public String getRealKey() {
+        return realKey;
     }
 
-    @Override
-    public void set(Easy2CacheChannel easy2CacheChannel) {
-        super.getClusterAsyncCommands().set(easy2CacheChannel.getRealKey(), easy2CacheChannel.getValue());
+    public void setRealKey(String realKey) {
+        this.realKey = realKey;
     }
 
-    @Override
-    public <T> T get(T easy2CacheChannel) {
-        return easy2CacheChannel;
+    public T getValue() {
+        return value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
     }
 
 }

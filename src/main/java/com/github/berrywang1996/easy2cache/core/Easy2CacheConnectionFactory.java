@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.github.berrywang1996.easy2cache;
+package com.github.berrywang1996.easy2cache.core;
 
 import com.github.berrywang1996.easy2cache.consts.RedisMode;
 import com.lambdaworks.redis.RedisClient;
