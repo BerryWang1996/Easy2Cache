@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Easy2CacheJsonChannel<T> extends AbstractEasy2CacheChannel<T, String> {
+
     @Override
     public String serialize() {
         if (log.isDebugEnabled()) {

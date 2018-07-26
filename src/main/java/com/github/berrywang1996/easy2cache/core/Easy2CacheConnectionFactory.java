@@ -39,33 +39,33 @@ public class Easy2CacheConnectionFactory {
         // 创建真正的连接
         String url = easy2CacheConfig.getUrl();
         // 根据redis模式，创建对应的连接
-        StatefulConnection<String, String> stringStringconnection;
-        StatefulConnection<String, byte[]> stringBytesconnection;
+        StatefulConnection<String, String> stringStringConnection;
+        StatefulConnection<String, byte[]> stringBytesConnection;
         if (RedisMode.CLUSTER == easy2CacheConfig.getRedisMode()) {
             // 集群模式
             RedisClusterClient redisClient = RedisClusterClient.create(url);
-            stringStringconnection = redisClient.connect();
-            stringBytesconnection = redisClient.connect(new Easy2CacheByteArrayCodec());
+            stringStringConnection = redisClient.connect();
+            stringBytesConnection = redisClient.connect(new Easy2CacheByteArrayCodec());
         } else if (RedisMode.SENTINEL == easy2CacheConfig.getRedisMode()) {
             // 哨兵模式
             RedisClient redisClient = RedisClient.create(url);
-            stringStringconnection = redisClient.connect();
-            stringBytesconnection = redisClient.connect(new Easy2CacheByteArrayCodec());
+            stringStringConnection = redisClient.connect();
+            stringBytesConnection = redisClient.connect(new Easy2CacheByteArrayCodec());
         } else {
             // 单机模式
             RedisClient redisClient = RedisClient.create(url);
-            stringStringconnection = redisClient.connect();
-            stringBytesconnection = redisClient.connect(new Easy2CacheByteArrayCodec());
+            stringStringConnection = redisClient.connect();
+            stringBytesConnection = redisClient.connect(new Easy2CacheByteArrayCodec());
         }
         // 设置超时时间
         if (easy2CacheConfig.getTimeout() != null) {
-            stringStringconnection.setTimeout(easy2CacheConfig.getTimeout(), TimeUnit.SECONDS);
-            stringBytesconnection.setTimeout(easy2CacheConfig.getTimeout(), TimeUnit.SECONDS);
+            stringStringConnection.setTimeout(easy2CacheConfig.getTimeout(), TimeUnit.SECONDS);
+            stringBytesConnection.setTimeout(easy2CacheConfig.getTimeout(), TimeUnit.SECONDS);
         }
         // 创建连接
         return new Easy2CacheConnection(
-                stringStringconnection,
-                stringBytesconnection
+                stringStringConnection,
+                stringBytesConnection
         );
     }
 
