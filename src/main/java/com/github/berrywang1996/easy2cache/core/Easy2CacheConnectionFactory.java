@@ -16,10 +16,8 @@
 
 package com.github.berrywang1996.easy2cache.core;
 
-import com.github.berrywang1996.easy2cache.core.Easy2CacheConfig;
-import com.github.berrywang1996.easy2cache.core.Easy2CacheConnection;
-import com.github.berrywang1996.easy2cache.serialize.Easy2CacheByteArrayCodec;
 import com.github.berrywang1996.easy2cache.consts.RedisMode;
+import com.github.berrywang1996.easy2cache.serialize.Easy2CacheByteArrayCodec;
 import com.lambdaworks.redis.RedisClient;
 import com.lambdaworks.redis.api.StatefulConnection;
 import com.lambdaworks.redis.cluster.RedisClusterClient;

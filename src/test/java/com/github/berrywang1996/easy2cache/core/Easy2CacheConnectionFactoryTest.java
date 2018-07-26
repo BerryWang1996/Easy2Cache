@@ -67,8 +67,7 @@ public class Easy2CacheConnectionFactoryTest {
         client.set(userChannel);
 
         // 获取数据
-        UserCacheChannel userCacheChannel = client.get(userChannel);
-        User _user = userCacheChannel.getValue();
+        User _user = client.get(userChannel);
         log.info("get value from redis : {}", _user);
 
     }
@@ -88,8 +87,7 @@ public class Easy2CacheConnectionFactoryTest {
         client.set(departmentChannel);
 
         // 获取数据
-        DepartmentCacheChannel departmentCacheChannel = client.get(departmentChannel);
-        Department _department = departmentCacheChannel.getValue();
+        Department _department = client.get(departmentChannel);
         log.info("get value from redis : {}", _department);
 
     }

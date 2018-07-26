@@ -52,7 +52,7 @@ public abstract class AbstractEasy2CacheClient {
 
     public abstract void set(AbstractEasy2CacheChannel abstractEasy2CacheChannel);
 
-    public abstract <T> T get(T easy2CacheChannel);
+    public abstract <T, ST> T get(AbstractEasy2CacheChannel<T, ST> easy2CacheChannel);
 
     <T> AbstractEasy2CacheChannel castEasy2CacheChannel(T easy2CacheChannel) {
         return (AbstractEasy2CacheChannel) easy2CacheChannel;

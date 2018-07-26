@@ -41,20 +41,18 @@ public class Easy2CacheCommonClient extends AbstractEasy2CacheClient {
     }
 
     @Override
-    public <T> T get(T easy2CacheChannel) {
+    public <T, ST> T get(AbstractEasy2CacheChannel<T, ST> easy2CacheChannel) {
         AbstractEasy2CacheChannel abstractEasy2CacheChannel = castEasy2CacheChannel(easy2CacheChannel);
         try {
-            abstractEasy2CacheChannel.setValue(
-                    abstractEasy2CacheChannel.unserialize(
-                            getCommonCommands(abstractEasy2CacheChannel)
-                                    .get(abstractEasy2CacheChannel.getRealKey()).get(),
-                            abstractEasy2CacheChannel.getValue().getClass()
-                    )
+            return (T) abstractEasy2CacheChannel.unserialize(
+                    getCommonCommands(abstractEasy2CacheChannel)
+                            .get(abstractEasy2CacheChannel.getRealKey()).get(),
+                    abstractEasy2CacheChannel.getValue().getClass()
             );
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return easy2CacheChannel;
+        return null;
     }
 
 }
