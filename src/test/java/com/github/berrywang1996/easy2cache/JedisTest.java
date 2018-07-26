@@ -20,7 +20,7 @@ import org.junit.Test;
 import redis.clients.jedis.Jedis;
 
 /**
- * @author 王伯瑞
+ * @author BerryWang1996
  * @version V1.0.0
  */
 public class JedisTest {

@@ -17,7 +17,7 @@
 package com.github.berrywang1996.easy2cache.util;
 
 /**
- * @author 王伯瑞
+ * @author BerryWang1996
  * @version V1.0.0
  */
 public final class StringUtil {

@@ -19,7 +19,7 @@ package com.github.berrywang1996.easy2cache.core;
 import com.lambdaworks.redis.cluster.api.async.RedisAdvancedClusterAsyncCommands;
 
 /**
- * @author 王伯瑞
+ * @author BerryWang1996
  * @version V1.0.0
  */
 public class Easy2CacheClusterClient extends AbstractEasy2CacheClient {

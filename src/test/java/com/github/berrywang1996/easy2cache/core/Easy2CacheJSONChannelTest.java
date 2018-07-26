@@ -22,11 +22,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author 王伯瑞
+ * @author BerryWang1996
  * @version V1.0.0
- * @Title:
- * @Package com.github.berrywang1996.easy2cache.core
- * @date 2018/7/26 9:49
  */
 public class Easy2CacheJSONChannelTest {
 

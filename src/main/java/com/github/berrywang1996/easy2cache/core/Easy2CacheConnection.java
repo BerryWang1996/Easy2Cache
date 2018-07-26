@@ -23,7 +23,7 @@ import com.lambdaworks.redis.cluster.api.StatefulRedisClusterConnection;
 import java.rmi.activation.UnknownObjectException;
 
 /**
- * @author 王伯瑞
+ * @author BerryWang1996
  * @version V1.0.0
  */
 public class Easy2CacheConnection {

@@ -21,7 +21,7 @@ import com.lambdaworks.redis.cluster.api.async.RedisAdvancedClusterAsyncCommands
 import lombok.Getter;
 
 /**
- * @author 王伯瑞
+ * @author BerryWang1996
  * @version V1.0.0
  */
 @Getter

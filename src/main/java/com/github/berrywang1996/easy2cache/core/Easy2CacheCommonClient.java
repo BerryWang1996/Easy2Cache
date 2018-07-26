@@ -21,7 +21,7 @@ import com.lambdaworks.redis.api.async.RedisAsyncCommands;
 import java.util.concurrent.ExecutionException;
 
 /**
- * @author 王伯瑞
+ * @author BerryWang1996
  * @version V1.0.0
  */
 public class Easy2CacheCommonClient extends AbstractEasy2CacheClient {

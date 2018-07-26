@@ -19,11 +19,8 @@ package com.github.berrywang1996.easy2cache;
 import lombok.Data;
 
 /**
- * @author 王伯瑞
+ * @author BerryWang1996
  * @version V1.0.0
- * @Title:
- * @Package com.github.berrywang1996.easy2cache
- * @date 2018/7/25 17:43
  */
 @Data
 public class User {
