@@ -54,6 +54,10 @@ public abstract class AbstractEasy2CacheClient implements Easy2CacheCommand {
         return (AbstractEasy2CacheKey) easy2CacheKey;
     }
 
+    RedisAsyncCommands getCommonCommands() {
+        return this.stringStringCommands;
+    }
+
     RedisAsyncCommands getCommonCommands(AbstractEasy2CacheKey abstractEasy2CacheKey) {
         if (abstractEasy2CacheKey instanceof Easy2CacheJsonKey) {
             return this.stringStringCommands;
@@ -63,6 +67,10 @@ public abstract class AbstractEasy2CacheClient implements Easy2CacheCommand {
             new OperationNotSupportedException().printStackTrace();
         }
         return null;
+    }
+
+    RedisAdvancedClusterAsyncCommands getClusterCommands() {
+        return this.clusterStringStringCommands;
     }
 
     RedisAdvancedClusterAsyncCommands getClusterCommands(AbstractEasy2CacheKey abstractEasy2CacheKey) {

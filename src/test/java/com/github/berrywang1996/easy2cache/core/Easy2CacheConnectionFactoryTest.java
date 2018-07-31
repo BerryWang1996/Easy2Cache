@@ -52,7 +52,7 @@ public class Easy2CacheConnectionFactoryTest {
         client = connection.getClient();
 
         // 清空当前数据库所有数据
-        client.getCommonCommands(new Easy2CacheJsonKey()).flushdb();
+        client.getCommonCommands().flushdb();
 
     }
 
