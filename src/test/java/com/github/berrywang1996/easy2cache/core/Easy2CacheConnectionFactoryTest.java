@@ -16,6 +16,7 @@
 
 package com.github.berrywang1996.easy2cache.core;
 
+import com.github.berrywang1996.easy2cache.channel.Easy2CacheJsonKey;
 import com.github.berrywang1996.easy2cache.domain.Department;
 import com.github.berrywang1996.easy2cache.domain.User;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,9 @@ public class Easy2CacheConnectionFactoryTest {
 
         // 获取操作客户端
         client = connection.getClient();
+
+        // 清空当前数据库所有数据
+        client.getCommonCommands(new Easy2CacheJsonKey()).flushdb();
 
     }
 
