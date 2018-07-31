@@ -33,12 +33,12 @@ public abstract class AbstractEasy2CacheKey<T, ST> implements Easy2CacheSerializ
     /**
      * 缓存的过期时间（秒）
      */
-    private long expireSecond;
+    private Long expireSecond;
 
     /**
      * 缓存的过期时间（毫秒）
      */
-    private long expireMilliseconds;
+    private Long expireMilliseconds;
 
     public String getRealKey() {
         return realKey;
@@ -48,19 +48,19 @@ public abstract class AbstractEasy2CacheKey<T, ST> implements Easy2CacheSerializ
         this.realKey = realKey;
     }
 
-    public long getExpireSecond() {
+    public Long getExpireSecond() {
         return expireSecond;
     }
 
-    public void setExpireSecond(long expireSecond) {
+    public void setExpireSecond(Long expireSecond) {
         this.expireSecond = expireSecond;
     }
 
-    public long getExpireMilliseconds() {
+    public Long getExpireMilliseconds() {
         return expireMilliseconds;
     }
 
-    public void setExpireMilliseconds(long expireMilliseconds) {
+    public void setExpireMilliseconds(Long expireMilliseconds) {
         this.expireMilliseconds = expireMilliseconds;
     }
 

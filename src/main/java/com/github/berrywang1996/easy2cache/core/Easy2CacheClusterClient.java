@@ -37,7 +37,12 @@ public class Easy2CacheClusterClient extends AbstractEasy2CacheClient {
     public <T, ST> void set(AbstractEasy2CacheKey<T, ST> key, T value) {
         getClusterCommands(key).set(
                 key.getRealKey(),
-                key.serialize(value)
+                key.serialize(value),
+                key.getExpireMilliseconds() != null || key.getExpireSecond() != null ?
+                        key.getExpireMilliseconds() != null ?
+                                new SetArgs().px(key.getExpireMilliseconds()) :
+                                new SetArgs().ex(key.getExpireSecond()) :
+                        new SetArgs()
         );
     }
 

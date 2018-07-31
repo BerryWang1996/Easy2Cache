@@ -37,7 +37,12 @@ public class Easy2CacheCommonClient extends AbstractEasy2CacheClient {
     public <T, ST> void set(AbstractEasy2CacheKey<T, ST> key, T value) {
         getCommonCommands(key).set(
                 key.getRealKey(),
-                key.serialize(value)
+                key.serialize(value),
+                key.getExpireMilliseconds() != null || key.getExpireSecond() != null ?
+                        key.getExpireMilliseconds() != null ?
+                                new SetArgs().px(key.getExpireMilliseconds()) :
+                                new SetArgs().ex(key.getExpireSecond()) :
+                        new SetArgs()
         );
     }
 
