@@ -16,8 +16,8 @@
 
 package com.github.berrywang1996.easy2cache.core;
 
-import com.github.berrywang1996.easy2cache.channel.Easy2CacheByteChannel;
-import com.github.berrywang1996.easy2cache.channel.Easy2CacheJsonChannel;
+import com.github.berrywang1996.easy2cache.channel.Easy2CacheByteKey;
+import com.github.berrywang1996.easy2cache.channel.Easy2CacheJsonKey;
 import com.github.berrywang1996.easy2cache.domain.Department;
 import com.github.berrywang1996.easy2cache.domain.User;
 import org.junit.Assert;
@@ -30,9 +30,9 @@ import org.junit.Test;
  */
 public class Easy2CacheJsonChannelTest {
 
-    private Easy2CacheJsonChannel<User> jsonChannel = new Easy2CacheJsonChannel<>();
+    private Easy2CacheJsonKey<User> jsonChannel = new Easy2CacheJsonKey<>();
 
-    private Easy2CacheByteChannel<Department> byteChannel = new Easy2CacheByteChannel<>();
+    private Easy2CacheByteKey<Department> byteChannel = new Easy2CacheByteKey<>();
 
     private User user = new User();
 
@@ -43,24 +43,22 @@ public class Easy2CacheJsonChannelTest {
         user.setId(10L);
         user.setUsername("berry王");
         user.setPassword("123");
-        jsonChannel.setValue(user);
 
         department.setId(20L);
         department.setName("test部门");
-        byteChannel.setValue(department);
     }
 
     @Test
     public void testFastjsonSerialize() {
         String json_result = "{\"id\":10,\"password\":\"123\",\"username\":\"berry王\"}";
-        Assert.assertEquals(json_result, jsonChannel.serialize());
+        Assert.assertEquals(json_result, jsonChannel.serialize(user));
         Assert.assertEquals(user, jsonChannel.unserialize(json_result, User.class));
     }
 
     @Test
     public void testFstSerialize() {
-        byte[] byte_result = byteChannel.serialize();
-        Assert.assertArrayEquals(byte_result, byteChannel.serialize());
+        byte[] byte_result = byteChannel.serialize(department);
+        Assert.assertArrayEquals(byte_result, byteChannel.serialize(department));
         Assert.assertEquals(department, byteChannel.unserialize(byte_result, Department.class));
     }
 

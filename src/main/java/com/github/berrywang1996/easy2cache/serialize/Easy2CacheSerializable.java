@@ -22,7 +22,7 @@ package com.github.berrywang1996.easy2cache.serialize;
  */
 public interface Easy2CacheSerializable<T, ST> {
 
-    ST serialize();
+    ST serialize(T data);
 
     T unserialize(ST data, Class<T> clz);
 

@@ -16,14 +16,14 @@
 
 package com.github.berrywang1996.easy2cache.core;
 
-import com.github.berrywang1996.easy2cache.channel.Easy2CacheJsonChannel;
+import com.github.berrywang1996.easy2cache.channel.Easy2CacheJsonKey;
 import com.github.berrywang1996.easy2cache.domain.User;
 
 /**
  * @author BerryWang1996
  * @version V1.0.0
  */
-public class UserCacheChannel extends Easy2CacheJsonChannel<User> {
+public class UserCacheKey extends Easy2CacheJsonKey<User> {
 
     @Override
     public void setRealKey(String realKey) {

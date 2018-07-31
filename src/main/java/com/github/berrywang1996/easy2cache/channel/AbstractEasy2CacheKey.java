@@ -18,21 +18,17 @@ package com.github.berrywang1996.easy2cache.channel;
 
 import com.github.berrywang1996.easy2cache.serialize.Easy2CacheSerializable;
 
+import java.lang.reflect.ParameterizedType;
+
 /**
  * @author BerryWang1996
  * @version V1.0.0
  */
-public abstract class AbstractEasy2CacheChannel<T, ST> implements Easy2CacheSerializable<T, ST> {
-
+public abstract class AbstractEasy2CacheKey<T, ST> implements Easy2CacheSerializable<T, ST> {
     /**
-     * 缓存中的key
+     * 缓存中真实的key
      */
     private String realKey;
-
-    /**
-     * 缓存的value
-     */
-    private T value;
 
     /**
      * 缓存的过期时间（秒）
@@ -52,12 +48,24 @@ public abstract class AbstractEasy2CacheChannel<T, ST> implements Easy2CacheSeri
         this.realKey = realKey;
     }
 
-    public T getValue() {
-        return value;
+    public long getExpireSecond() {
+        return expireSecond;
     }
 
-    public void setValue(T value) {
-        this.value = value;
+    public void setExpireSecond(long expireSecond) {
+        this.expireSecond = expireSecond;
+    }
+
+    public long getExpireMilliseconds() {
+        return expireMilliseconds;
+    }
+
+    public void setExpireMilliseconds(long expireMilliseconds) {
+        this.expireMilliseconds = expireMilliseconds;
+    }
+
+    public Class<T> getValueClass() {
+        return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
 }

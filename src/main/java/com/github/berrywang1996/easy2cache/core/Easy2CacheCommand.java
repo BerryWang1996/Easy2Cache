@@ -16,7 +16,7 @@
 
 package com.github.berrywang1996.easy2cache.core;
 
-import com.github.berrywang1996.easy2cache.channel.AbstractEasy2CacheChannel;
+import com.github.berrywang1996.easy2cache.channel.AbstractEasy2CacheKey;
 
 /**
  * @author BerryWang1996
@@ -24,14 +24,14 @@ import com.github.berrywang1996.easy2cache.channel.AbstractEasy2CacheChannel;
  */
 public interface Easy2CacheCommand {
 
-    void set(AbstractEasy2CacheChannel easy2CacheChannel);
+    <T, ST> void set(AbstractEasy2CacheKey<T, ST> key, T value);
 
-    boolean setnx(AbstractEasy2CacheChannel easy2CacheChannel);
+    <T, ST> boolean setnx(AbstractEasy2CacheKey<T, ST> key, T value);
 
-    void setxx(AbstractEasy2CacheChannel easy2CacheChannel);
+    <T, ST> void setxx(AbstractEasy2CacheKey<T, ST> key, T value);
 
-    long del(AbstractEasy2CacheChannel easy2CacheChannel);
+    long del(AbstractEasy2CacheKey key);
 
-    <T, ST> T get(AbstractEasy2CacheChannel<T, ST> easy2CacheChannel);
+    <T, ST> T get(AbstractEasy2CacheKey<T, ST> key);
 
 }

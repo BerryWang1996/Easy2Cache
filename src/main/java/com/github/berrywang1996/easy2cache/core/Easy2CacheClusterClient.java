@@ -16,7 +16,7 @@
 
 package com.github.berrywang1996.easy2cache.core;
 
-import com.github.berrywang1996.easy2cache.channel.AbstractEasy2CacheChannel;
+import com.github.berrywang1996.easy2cache.channel.AbstractEasy2CacheKey;
 import com.lambdaworks.redis.SetArgs;
 import com.lambdaworks.redis.cluster.api.async.RedisAdvancedClusterAsyncCommands;
 
@@ -34,19 +34,19 @@ public class Easy2CacheClusterClient extends AbstractEasy2CacheClient {
     }
 
     @Override
-    public void set(AbstractEasy2CacheChannel easy2CacheChannel) {
-        getClusterCommands(easy2CacheChannel).set(
-                easy2CacheChannel.getRealKey(),
-                easy2CacheChannel.serialize()
+    public <T, ST> void set(AbstractEasy2CacheKey<T, ST> key, T value) {
+        getClusterCommands(key).set(
+                key.getRealKey(),
+                key.serialize(value)
         );
     }
 
     @Override
-    public boolean setnx(AbstractEasy2CacheChannel easy2CacheChannel) {
+    public <T, ST> boolean setnx(AbstractEasy2CacheKey<T, ST> key, T value) {
         try {
-            return (boolean) getClusterCommands(easy2CacheChannel).setnx(
-                    easy2CacheChannel.getRealKey(),
-                    easy2CacheChannel.serialize()
+            return (boolean) getClusterCommands(key).setnx(
+                    key.getRealKey(),
+                    key.serialize(value)
             ).get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -55,11 +55,11 @@ public class Easy2CacheClusterClient extends AbstractEasy2CacheClient {
     }
 
     @Override
-    public void setxx(AbstractEasy2CacheChannel easy2CacheChannel) {
+    public <T, ST> void setxx(AbstractEasy2CacheKey<T, ST> key, T value) {
         try {
-            getClusterCommands(easy2CacheChannel).set(
-                    easy2CacheChannel.getRealKey(),
-                    easy2CacheChannel.serialize(),
+            getClusterCommands(key).set(
+                    key.getRealKey(),
+                    key.serialize(value),
                     new SetArgs().xx()
             ).get();
         } catch (InterruptedException | ExecutionException e) {
@@ -68,11 +68,10 @@ public class Easy2CacheClusterClient extends AbstractEasy2CacheClient {
     }
 
     @Override
-    public long del(AbstractEasy2CacheChannel easy2CacheChannel) {
+    public long del(AbstractEasy2CacheKey key) {
         try {
-            return (long) getClusterCommands(easy2CacheChannel).del(
-                    easy2CacheChannel.getRealKey(),
-                    easy2CacheChannel.serialize()
+            return (long) getClusterCommands(key).del(
+                    key.getRealKey()
             ).get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
@@ -81,14 +80,12 @@ public class Easy2CacheClusterClient extends AbstractEasy2CacheClient {
     }
 
     @Override
-    public <T, ST> T get(AbstractEasy2CacheChannel<T, ST> easy2CacheChannel) {
-        AbstractEasy2CacheChannel abstractEasy2CacheChannel = castEasy2CacheChannel(easy2CacheChannel);
+    public <T, ST> T get(AbstractEasy2CacheKey<T, ST> key) {
+        AbstractEasy2CacheKey abstractEasy2CacheKey = castEasy2CacheKey(key);
         try {
-            return (T) abstractEasy2CacheChannel.unserialize(
-                    getCommonCommands(abstractEasy2CacheChannel)
-                            .get(abstractEasy2CacheChannel.getRealKey()).get(),
-                    abstractEasy2CacheChannel.getValue().getClass()
-            );
+            return (T) abstractEasy2CacheKey.unserialize(
+                    getCommonCommands(abstractEasy2CacheKey).get(abstractEasy2CacheKey.getRealKey()).get(),
+                    key.getValueClass());
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

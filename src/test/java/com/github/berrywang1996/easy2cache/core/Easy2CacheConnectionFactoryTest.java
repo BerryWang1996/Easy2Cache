@@ -62,13 +62,12 @@ public class Easy2CacheConnectionFactoryTest {
         user.setPassword("123456");
 
         // 保存数据
-        UserCacheChannel userChannel = new UserCacheChannel();
-        userChannel.setRealKey("user");
-        userChannel.setValue(user);
-        client.set(userChannel);
+        UserCacheKey userKey = new UserCacheKey();
+        userKey.setRealKey("user");
+        client.set(userKey, user);
 
         // 获取数据
-        User _user = client.get(userChannel);
+        User _user = client.get(userKey);
         log.info("get value from redis : {}", _user);
 
     }
@@ -83,16 +82,14 @@ public class Easy2CacheConnectionFactoryTest {
         user.setPassword("123456");
 
         // 保存数据nx
-        UserCacheChannel userChannel2 = new UserCacheChannel();
-        userChannel2.setRealKey("testNx");
-        userChannel2.setValue(user);
-        Assert.assertTrue(client.setnx(userChannel2));
+        UserCacheKey userKey2 = new UserCacheKey();
+        userKey2.setRealKey("testNx");
+        Assert.assertTrue(client.setnx(userKey2, user));
 
         // 保存数据nx
-        UserCacheChannel userChannel3 = new UserCacheChannel();
-        userChannel3.setRealKey("testNx");
-        userChannel3.setValue(user);
-        Assert.assertFalse(client.setnx(userChannel3));
+        UserCacheKey userKey3 = new UserCacheKey();
+        userKey3.setRealKey("testNx");
+        Assert.assertFalse(client.setnx(userKey3, user));
 
     }
 
@@ -107,19 +104,17 @@ public class Easy2CacheConnectionFactoryTest {
         user.setPassword("123456");
 
         // 保存数据xx
-        UserCacheChannel userChannel1 = new UserCacheChannel();
-        userChannel1.setRealKey("testXx");
-        userChannel1.setValue(user);
-        client.set(userChannel1);
+        UserCacheKey userKey1 = new UserCacheKey();
+        userKey1.setRealKey("testXx");
+        client.set(userKey1, user);
 
         user.setPassword("new password");
 
         // 保存数据xx
-        UserCacheChannel userChannel2 = new UserCacheChannel();
-        userChannel2.setRealKey("testXx");
-        userChannel2.setValue(user);
-        client.setxx(userChannel2);
-        Assert.assertNotEquals(client.get(userChannel2), user);
+        UserCacheKey userKey2 = new UserCacheKey();
+        userKey2.setRealKey("testXx");
+        client.setxx(userKey2, user);
+        Assert.assertNotEquals(client.get(userKey2), user);
 
     }
 
@@ -133,17 +128,15 @@ public class Easy2CacheConnectionFactoryTest {
         user.setPassword("123456");
 
         // 保存数据
-        UserCacheChannel userChannel1 = new UserCacheChannel();
-        userChannel1.setRealKey("testDel");
-        userChannel1.setValue(user);
-        client.set(userChannel1);
+        UserCacheKey userKey1 = new UserCacheKey();
+        userKey1.setRealKey("testDel");
+        client.set(userKey1, user);
 
         // 删除数据
-        UserCacheChannel userChannel2 = new UserCacheChannel();
-        userChannel2.setRealKey("testDel");
-        userChannel2.setValue(user);
-        Assert.assertEquals(client.del(userChannel2), 1);
-        Assert.assertEquals(client.del(userChannel2), 0);
+        UserCacheKey userKey2 = new UserCacheKey();
+        userKey2.setRealKey("testDel");
+        Assert.assertEquals(client.del(userKey2), 1);
+        Assert.assertEquals(client.del(userKey2), 0);
 
     }
 
@@ -156,13 +149,12 @@ public class Easy2CacheConnectionFactoryTest {
         department.setName("测试部门 department");
 
         // 保存数据
-        DepartmentCacheChannel departmentChannel = new DepartmentCacheChannel();
-        departmentChannel.setRealKey("department");
-        departmentChannel.setValue(department);
-        client.set(departmentChannel);
+        DepartmentCacheKey departmentKey = new DepartmentCacheKey();
+        departmentKey.setRealKey("department");
+        client.set(departmentKey, department);
 
         // 获取数据
-        Department _department = client.get(departmentChannel);
+        Department _department = client.get(departmentKey);
         log.info("get value from redis : {}", _department);
 
     }

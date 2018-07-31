@@ -16,9 +16,9 @@
 
 package com.github.berrywang1996.easy2cache.core;
 
-import com.github.berrywang1996.easy2cache.channel.AbstractEasy2CacheChannel;
-import com.github.berrywang1996.easy2cache.channel.Easy2CacheByteChannel;
-import com.github.berrywang1996.easy2cache.channel.Easy2CacheJsonChannel;
+import com.github.berrywang1996.easy2cache.channel.AbstractEasy2CacheKey;
+import com.github.berrywang1996.easy2cache.channel.Easy2CacheByteKey;
+import com.github.berrywang1996.easy2cache.channel.Easy2CacheJsonKey;
 import com.lambdaworks.redis.api.async.RedisAsyncCommands;
 import com.lambdaworks.redis.cluster.api.async.RedisAdvancedClusterAsyncCommands;
 
@@ -50,14 +50,14 @@ public abstract class AbstractEasy2CacheClient implements Easy2CacheCommand {
         this.clusterStringBytesCommands = clusterStringBytesCommands;
     }
 
-    <T> AbstractEasy2CacheChannel castEasy2CacheChannel(T easy2CacheChannel) {
-        return (AbstractEasy2CacheChannel) easy2CacheChannel;
+    <T> AbstractEasy2CacheKey castEasy2CacheKey(T easy2CacheKey) {
+        return (AbstractEasy2CacheKey) easy2CacheKey;
     }
 
-    RedisAsyncCommands getCommonCommands(AbstractEasy2CacheChannel abstractEasy2CacheChannel) {
-        if (abstractEasy2CacheChannel instanceof Easy2CacheJsonChannel) {
+    RedisAsyncCommands getCommonCommands(AbstractEasy2CacheKey abstractEasy2CacheKey) {
+        if (abstractEasy2CacheKey instanceof Easy2CacheJsonKey) {
             return this.stringStringCommands;
-        } else if (abstractEasy2CacheChannel instanceof Easy2CacheByteChannel) {
+        } else if (abstractEasy2CacheKey instanceof Easy2CacheByteKey) {
             return this.stringBytesCommands;
         } else {
             new OperationNotSupportedException().printStackTrace();
@@ -65,10 +65,10 @@ public abstract class AbstractEasy2CacheClient implements Easy2CacheCommand {
         return null;
     }
 
-    RedisAdvancedClusterAsyncCommands getClusterCommands(AbstractEasy2CacheChannel abstractEasy2CacheChannel) {
-        if (abstractEasy2CacheChannel instanceof Easy2CacheJsonChannel) {
+    RedisAdvancedClusterAsyncCommands getClusterCommands(AbstractEasy2CacheKey abstractEasy2CacheKey) {
+        if (abstractEasy2CacheKey instanceof Easy2CacheJsonKey) {
             return this.clusterStringStringCommands;
-        } else if (abstractEasy2CacheChannel instanceof Easy2CacheByteChannel) {
+        } else if (abstractEasy2CacheKey instanceof Easy2CacheByteKey) {
             return this.clusterStringBytesCommands;
         } else {
             new OperationNotSupportedException().printStackTrace();
